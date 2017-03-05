@@ -194,7 +194,7 @@ var view = {
 }
 
 function getImageScores(){
-  axios.get('/getImage')
+  axios.get('http://localhost:3000/getImage')
   .then(function(data){
     var score = parseInt(data.data) * 10.56 || 0;
     console.log(score);
