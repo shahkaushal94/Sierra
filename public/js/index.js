@@ -146,9 +146,7 @@ var controllers = {
   updateAudience: function() {
     var audienceData = chart.data.datasets[1].data;
 
-    setInterval(function() {
-      getImageScores()
-    }, 5000);
+    getImageScores();
 
     console.log(window.scores)
     var scores = window.scores;
