@@ -4,13 +4,13 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', {
-    title: 'Audience Engagement Analyzer'
+    title: 'Sierra | talking simplified'
   });
 });
 
 router.get('/getImage', function(req, res, next){
 	var spawn = require('child_process').spawn,
-		  py    = spawn('python', ['emotions.py']),
+		  py    = spawn('python27', ['emotions.py']),
 		  data = [1,2,3,4,5,6,7,8,9],
 		  dataString = '';
 
