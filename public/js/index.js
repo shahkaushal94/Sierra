@@ -143,24 +143,26 @@ var controllers = {
 
     chart.update();
   },
-  updateAudience: function() {
+  
+ updateAudience: function() {
     var audienceData = chart.data.datasets[1].data;
-
-    getImageScores();
-
-    console.log(window.scores)
-    var scores = window.scores;
-    if (scores !== null && scores[scores.length - 1] !== undefined) {
-      info.audienceData.data.push(scores[scores.length - 1]);
-      info.audienceData.info.push({
-        rating: scores[scores.length - 1]
-      });
-      audienceData.push(scores[scores.length - 1]);
-      audienceData.shift();
-    }
-
-    chart.update();
+ 
+    getImageScores(function() {
+      console.log(window.scores)
+      var scores = window.scores;
+      if (scores !== null && scores[scores.length - 1] !== undefined) {
+        info.audienceData.data.push(scores[scores.length - 1]);
+        info.audienceData.info.push({
+          rating: scores[scores.length - 1]
+        });
+        audienceData.push(scores[scores.length - 1]);
+        audienceData.shift();
+      }
+ 
+      chart.update();
+    });
   },
+  
   updateImage: function() {
     getSearchImages(info.userData.info.length == 0 ? "" : info.userData.info[info.userData.info.length - 1].text, view.openImage);
   }
@@ -191,15 +193,16 @@ var view = {
     $('#modal').foundation('open');
     setTimeout(function() {
       $('#modal').foundation('close');
-    }, 1500);
+    }, 3500);
   }
 }
 
-function getImageScores() {
+function getImageScores(callback) {
   axios.get('/getImage')
   .then(function(data){
     var score = parseInt(data.data) * 10.56 || 0;
     console.log(score);
     window.scores.push(score);
+    return callback();
   })
 }

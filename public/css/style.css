@@ -77,7 +77,7 @@ img {
 
 .chart-area-wrapper {
   width: 95vw;
-  overflow-x: scroll;
+  overflow-x: auto;
   margin: 0 auto;
 }
 
