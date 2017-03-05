@@ -101,7 +101,7 @@ var controllers = {
     }, 5000);
     timerImage = setInterval(function() {
       _this.updateImage()
-    }, 5000);
+    }, 15000);
   },
   pause: function() {
     $('#pause').css('display', 'none');
@@ -112,6 +112,7 @@ var controllers = {
   },
   stop: function() {
     this.pause();
+    $('#start-recording-page').css('display', 'none');
     $('#stop').css('display', 'none');
     $('#text-wrapper').html("");
     var maxWidth = Math.max(info.userData.data.length, info.audienceData.data.length);
@@ -177,19 +178,20 @@ var view = {
       var index = activePoint[0]._index + 1;
       if (type == 0 && info.userData.info.length >= index) {
         var userData = info.userData.info[index];
-        $('#speech').html(userData.text);
-        $('#speech-rating').html(userData.rating);
+        $('#modal').html("<h3>Speech: " + userData.text + "<br>Rating: " + userData.rating + "</h3>");
       } else if (type == 1 && info.audienceData.info_length >- index) {
         var audienceData = info.audienceData.info[index];
-        $('#image').html(audienceData.image);
-        $('#image-rating').html(audienceData.rating);
+        $('#modal').html("<img src='" + audienceData.image + "'><h3><br>Rating: " + audienceData.rating + "</h3>");
       }
       $('#modal').foundation('open');
     }
   },
   openImage: function(source) {
-    $('#image-rating').innerHTML = source;
+    $('#image-rating').html("<img src='" + source + "'>");
     $('#modal').foundation('open');
+    setTimeout(function() {
+      $('#modal').foundation('close');
+    }, 1500);
   }
 }
 
